@@ -17,10 +17,14 @@ void fatorial();
 
 int main() {
     int resposta;
-    printf("---Calculadora Científica---\n\n\n[1] soma [2] subtr [3] mult [4] div [5] sen\n[6] cos [7] tg \n[8] log [9] pot [10] fat\n\n\n Escolha uma opção:");
-    if (scanf("%d", &resposta) != 1 || resposta < 1 || resposta > 10) {
+    printf("----Calculadora Científica---\n\n\n");
+    printf("[1] soma [2] subtr [3] mult\n"); 
+    printf("[4] div  [5] sen   [6] cos\n");
+    printf("[7] tg   [8] log   [9] pot\n");
+    printf("         [0] fat\n\n\nEscolha uma opção: ");
+    if (scanf("%d", &resposta) != 1) {
         while (getchar() != '\n');
-        printf("Entrada inválida!\n Fim do Programa!\n");
+        printf("Entrada inválida!\nFim do Programa!\n");
         return 1;
     }
 
@@ -53,10 +57,11 @@ int main() {
     case 9:
         potencia();
         break;
-    case 10:
+    case 0:
         fatorial();
         break;
     default:
+        printf("Número não especificado na calculadora.\nFim do Programa.\n");
         break;
     }
     return 0;
@@ -67,7 +72,7 @@ float pegarNumero() {
     printf("Número: ");
     if (scanf("%f", &num) != 1) {
         while (getchar() != '\n');
-        printf("Entrada inválida!\n Fim do Programa!\n");
+        printf("Entrada inválida!\nFim do Programa!\n");
         exit(1);
     } else {
         return num;
@@ -101,6 +106,10 @@ void multiplicar() {
 void dividir() {
     float a = pegarNumero();
     float b = pegarNumero();
+    if (b == 0) {
+        printf("A divisão por 0 não é definida na matemática.\nFim do Programa.\n");
+        exit(1);
+    }
     printf("%.2f / %.2f = %.2f\n", a, b, a / b);
 }
 void seno() {
@@ -125,6 +134,10 @@ void potencia() {
     printf("%.2f ** %.2f = %.2f\n", a, b, pow(a, b));
 }
 void fatorial() {
-    int a = pegarNumero();
-    printf("%d! = %d", a, calculoFatorial(a));
+    int a = (int)pegarNumero();
+    if (a < 0) {
+        printf("O fatorial de números negativos não é definid ona matemática.");
+        exit(1);
+    }
+    printf("%d! = %d\n", a, calculoFatorial(a));
 }
