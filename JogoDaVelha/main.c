@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+/*
+ERROS PARA CORRIGIR: 
+EMPATE NAO FUNCIONA {FUNCAO LIMPAR O TABULEIRO E JOGAR NOVAMENTE OU FINALIZAR O JOGO}
+DEPOIS QUE O JOGADOR 2 JOGA FODE O A ORGANIZACAO DO JOGO NO TEMINAL
+MAS QUANDO O JOGADOR 1 APARECE FICA TUDO BEM
+
+
+*/
+
+
 void criarJogo(char vetor[3][3]);
 int resultado(char vetor[3][3]);
 void jogada(char vetor[3][3], char tipo);
