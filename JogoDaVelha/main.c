@@ -2,19 +2,10 @@
 #include <stdlib.h>
 
 
-/*
-ERROS PARA CORRIGIR: 
-EMPATE NAO FUNCIONA {FUNCAO LIMPAR O TABULEIRO E JOGAR NOVAMENTE OU FINALIZAR O JOGO}
-DEPOIS QUE O JOGADOR 2 JOGA FODE O A ORGANIZACAO DO JOGO NO TEMINAL
-MAS QUANDO O JOGADOR 1 APARECE FICA TUDO BEM
-
-
-*/
-
-
 void criarJogo(char vetor[3][3]);
 int resultado(char vetor[3][3]);
 void jogada(char vetor[3][3], char tipo);
+void jogarNovamente(char vetor[3][3]);
 
 int main() {
 
@@ -29,19 +20,22 @@ int main() {
         criarJogo(dados);
         jogada(dados, 'x');
         criarJogo(dados);
-        resultado(dados);
+        if (resultado(dados)) {
+            jogarNovamente(dados);
+            continue;
+        }
         jogada(dados, 'o');
         criarJogo(dados);
-        resultado(dados);
+        if (resultado(dados)) {
+            jogarNovamente(dados);
+        }
         
-    } while (!resultado(dados));
+    } while (1);
 
 
 
     return 0;
 }
-
-
 
 
 void criarJogo(char vetor[3][3]) {
@@ -66,10 +60,18 @@ void jogada(char vetor[3][3], char tipo) {
     int linha, coluna;
     do {
         if (tipo == 'x') {
-            printf("\nJogador 1: Marque onde você vai colocar o x:\n linha: ");
-            scanf("%d", &linha);
+            printf("\nJogador 1: Marque onde você vai colocar o 'x':\n linha: ");
+            if (scanf("%d", &linha) != 1 || linha < 0 || linha > 2) {
+                while (getchar() != '\n');
+                printf("Entrada inválida! Por favor, digite um número inteiro.\n");
+                continue;
+            } 
             printf("coluna: ");
-            scanf("%d", &coluna);
+            if (scanf("%d", &coluna) != 1 || coluna < 0 || coluna > 2) {
+                while (getchar() != '\n');
+                printf("Entrada inválida! Por favor, digite um número inteiro.\n");
+                continue;
+            } 
     
             if(vetor[linha][coluna] == ' ') {
                 vetor[linha][coluna] = 'x';
@@ -80,10 +82,18 @@ void jogada(char vetor[3][3], char tipo) {
             }
         
         } else {
-            printf("\nJogador 2: Marque onde você vai colocar o x:\n linha: ");
-            scanf("%d", &linha);
+            printf("\nJogador 2: Marque onde você vai colocar o 'o':\n linha: ");
+            if (scanf("%d", &linha) != 1 || linha < 0 || linha > 2) {
+                while (getchar() != '\n');
+                printf("Entrada inválida! Por favor, digite um número inteiro.\n");
+                continue;
+            } 
             printf("coluna: ");
-            scanf("%d", &coluna);
+            if (scanf("%d", &coluna) != 1 || coluna < 0 || coluna > 2) {
+                while (getchar() != '\n');
+                printf("Entrada inválida! Por favor, digite um número inteiro.\n");
+                continue;
+            } 
 
             if(vetor[linha][coluna] == ' ') {
                 vetor[linha][coluna] = 'o';
@@ -97,12 +107,9 @@ void jogada(char vetor[3][3], char tipo) {
     } while(1);
 }
 
-
-
-
 int resultado(char vetor[3][3]) {
     for( int i = 0; i < 3; i++) {
-        if(vetor[i][0] != ' ' && vetor[i][0] == vetor[i][1] == vetor[i][2]) {
+        if(vetor[i][0] != ' ' && vetor[i][0] == vetor[i][1] && vetor[i][0] == vetor[i][2]) {
             if (vetor[i][0] == 'x') {
                 printf("O Jogador 1 é o vencedor.\n");
             }
@@ -113,7 +120,7 @@ int resultado(char vetor[3][3]) {
         }
     }
     for(int j = 0; j < 3; j++) {
-        if(vetor[0][j] != ' ' && vetor[0][j] == vetor[1][j] == vetor[2][j]) {
+        if(vetor[0][j] != ' ' && vetor[0][j] == vetor[1][j] && vetor[1][j] == vetor[2][j]) {
             if (vetor[0][j] == 'x') {
                 printf("O Jogador 1 é o vencedor.\n");
             }
@@ -123,7 +130,7 @@ int resultado(char vetor[3][3]) {
             return 1;
         }
     }
-    if(vetor[0][0] != ' ' && vetor[0][0] == vetor[1][1] == vetor[2][2]) {
+    if(vetor[0][0] != ' ' && vetor[0][0] == vetor[1][1] && vetor[1][1] == vetor[2][2]) {
         if (vetor[0][0] == 'x') {
             printf("O Jogador 1 é o vencedor.\n");
         }
@@ -132,7 +139,7 @@ int resultado(char vetor[3][3]) {
         }
         return 1;
     }
-    if(vetor[0][2] != ' ' && vetor[0][2] == vetor[1][1] == vetor[2][0]) {
+    if(vetor[0][2] != ' ' && vetor[0][2] == vetor[1][1] && vetor[1][1] == vetor[2][0]) {
         if (vetor[0][2] == 'x') {
             printf("O Jogador 1 é o vencedor.\n");
         }
@@ -148,5 +155,23 @@ int resultado(char vetor[3][3]) {
             }
         }
     }
+    printf("Deu Velha\n");
     return 1;
+}
+
+void jogarNovamente(char vetor[3][3]) {
+    char resp;
+    printf("\nVocê quer jogar novamente: s/n: ");
+    scanf(" %c", &resp);
+    if (resp == 's' || resp == 'S') {
+        for(int a = 0; a < 3; a++) {
+            for(int b = 0; b < 3; b++) {
+                vetor[a][b] = ' ';
+            }
+        }
+    } else {
+        printf("\nFim do Programa.\n");
+        exit(0);
+    }
+
 }
