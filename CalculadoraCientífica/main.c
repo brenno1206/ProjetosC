@@ -136,7 +136,7 @@ void potencia() {
 void fatorial() {
     int a = (int)pegarNumero();
     if (a < 0) {
-        printf("O fatorial de números negativos não é definid ona matemática.");
+        printf("O fatorial de números negativos não é definido na matemática.");
         exit(1);
     }
     printf("%d! = %d\n", a, calculoFatorial(a));

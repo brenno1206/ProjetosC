@@ -21,14 +21,22 @@ Descrição: Implementação do clássico jogo da velha para dois jogadores no t
 Dificuldade: Fácil a intermediário.
 Conceitos: Matrizes, lógica de jogo, entrada do usuário.
 
+xxxxxxxxxxxxx
 
-
-
-
-2. Jogo da Forca
+4. Jogo da Forca
 Descrição: Um jogo clássico onde o usuário tenta adivinhar uma palavra, recebendo dicas sobre as letras corretas.
 Dificuldade: Intermediário.
 Conceitos: Manipulação de strings, geração de números aleatórios, entrada e saída de dados.
+
+xxxxxxxxxxxxx
+
+
+
+
+
+
+
+
 3. Gerenciador de Contatos (Agenda)
 Descrição: Um programa que permite armazenar, buscar, editar e excluir contatos, salvando os dados em um arquivo.
 Dificuldade: Intermediário.

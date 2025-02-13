@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 
+void limparTela();
 void criarJogo(char vetor[3][3]);
 int resultado(char vetor[3][3]);
 void jogada(char vetor[3][3], char tipo);
@@ -37,9 +38,17 @@ int main() {
     return 0;
 }
 
+void limparTela() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
 
 void criarJogo(char vetor[3][3]) {
-    system("clear");
+    void limparTela();
     printf("  0 1 2\n");
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) {
