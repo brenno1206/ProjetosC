@@ -5,7 +5,7 @@
 
 void limparTela();
 int pegarPalavra(char palavra[20], int tamanhoMax);
-void construirForca(char secreto[20], int tamanho);
+void construirForca(char palavra[20], char secreto[20], int tamanho);
 void palpite(char palavra[20], char secreto[20], char chutes[26], int tamanho);
 
 int tentativa = 0;
@@ -20,7 +20,7 @@ int main() {
     palavra_secreta[comprimento] = '\0';
 
     while(1) {
-        construirForca(palavra_secreta, comprimento);
+        construirForca(palavra, palavra_secreta, comprimento);
         palpite(palavra, palavra_secreta, chutes, comprimento);
     }
     return 0;
@@ -64,7 +64,7 @@ int pegarPalavra(char palavra[20], int tamanhoMax) {
 
         for(int i = 0; i < tamanho; i++) {
             if(isalpha(palavra[i]) == 0) {
-                printf("Há um caractere que não é uma letra. Tente novamente.");
+                printf("Há um caractere que não é uma letra. Tente novamente.\n");
                 return pegarPalavra(palavra, tamanhoMax);
             }
         }
@@ -77,20 +77,75 @@ int pegarPalavra(char palavra[20], int tamanhoMax) {
     return tamanho;
 }
 
-void construirForca(char secreto[20], int tamanho) {
+void construirForca(char palavra[20], char secreto[20], int tamanho) {
     printf("   _\n");
     printf("  / |\n");
-    printf(" | \\O/\n");
-    printf(" |  |\n");
-    printf(" | / \\\n");
+
+    switch (tentativa)
+    {
+        case 6: {
+            printf(" | \\O/\n");
+            printf(" |  |\n");
+            printf(" | / \\\n");
+            
+            break;
+        }
+        case 5: {
+            printf(" | \\O/\n");
+            printf(" |  |\n");
+            printf(" | / \n");
+            
+            break;
+        }
+        case 4: {
+            printf(" | \\O/\n");
+            printf(" |  |\n");
+            printf(" |   \n");
+            
+            break;
+        }
+        case 3: {
+            printf(" | \\O/\n");
+            printf(" |  \n");
+            printf(" |   \n");
+            
+            break;
+        }
+        case 2: {
+            printf(" |  O/\n");
+            printf(" |  \n");
+            printf(" |   \n");
+            
+            break;
+        }
+        case 1: {
+            printf(" |  O\n");
+            printf(" |  \n");
+            printf(" |   \n");
+            
+            break;
+        }
+        default: {
+            printf(" |  \n");
+            printf(" |  \n");
+            printf(" |   \n");
+        
+            break;
+        }
+    }
+
+
     printf(" |\n");
     printf("_|_    ");
-    
+
     for(int i = 0; i < tamanho; i++) {
         printf("%c ", secreto[i]);
     }
     printf("\n");
-
+    if(tentativa  == 6) {
+        printf("Você perdeu! A palavra era [%s]", palavra);
+        exit(0);
+    }
 }
 
 void palpite(char palavra[20], char secreto[20], char chutes[26], int tamanho){
@@ -98,6 +153,7 @@ void palpite(char palavra[20], char secreto[20], char chutes[26], int tamanho){
         int escolha;
         char letra;
         char palavra_palpite[20];
+        int result = 0;
 
         printf("\n Você deseja chutar uma letra(0) ou a palavra(1): ");
         if (scanf(" %d", &escolha) != 1 || (escolha != 0 && escolha != 1)) {
@@ -121,29 +177,38 @@ void palpite(char palavra[20], char secreto[20], char chutes[26], int tamanho){
             for(int j = 0; j < tamanho; j++) {
                 if(palavra[j] == tolower(letra)) {
                     secreto[j] = letra;
+                    result = 1;
+                    if(strcmp(secreto,palavra) == 0) {
+                        printf("Parabéns você acertou, a palavra é %s", secreto);
+                        return;
+                    }
                 }
             }
-            return;
-            chutes[tentativa] = letra;
-            tentativa += 1;
-            return;
+            if(result == 1) {
+                return;
+            }
+            else {
+                chutes[tentativa] = letra;
+                tentativa += 1;
+                return;
+            }
+
         } else if(escolha == 1) {
             printf("Digite seu palpite: ");
-
+            while (getchar() != '\n');
             if (fgets(palavra_palpite, 20, stdin) == NULL) {
                 printf("Erro ao ler entrada. Tente novamente.\n");
                 continue;
             }
-            while (getchar() != '\n');
+            palavra_palpite[strcspn(palavra_palpite, "\n")] = '\0'; 
             for(int k = 0; k < tamanho; k++) {
                 palavra_palpite[k] = tolower(palavra_palpite[k]);
             }
             if(strcmp(palavra,palavra_palpite) == 0) {
                 strcpy(secreto, palavra_palpite);
-                return;
+                printf("\nPARABÉNS! Você acertou a palavra.");
+                exit(0);
             }
-            printf("PALAVRA: %s\nSECRETO: %s\nPALAVAPALPITE: %s\n", palavra, secreto, palavra_palpite);
-            printf("Errado!\n");
             tentativa += 1;
             return;
         }
