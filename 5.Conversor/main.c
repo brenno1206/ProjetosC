@@ -36,7 +36,7 @@ int main() {
     } while(baseInicial == baseFinal);
 
     converter(baseInicial, baseFinal, numeroInicial, numeroFinal);
-    printf("base1: %d base2: %d numero: %s numero final: \n", baseInicial, baseFinal, numeroInicial, numeroFinal);
+    printf("base1: %d \nbase2: %d \nnumero: %s \nnumero final: %s \n", baseInicial, baseFinal, numeroInicial, numeroFinal);
     return 0;
 }
 
@@ -138,9 +138,9 @@ void pegarNumero(int base, char num1[tamanhoMax]) {
     }
 }
 
-void decToBin(char num1[tamanhoMax], char num2[tamanhoMax + 1]) {
-    long valor = atol(num1);  
-    int i = tamanhoMax;  
+void decToBin(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    unsigned long valor = strtoul(num1, NULL, 10);
+    int i = tamanhoMax - 1; 
     num2[i] = '\0'; 
 
     if (valor == 0) {
@@ -155,9 +155,9 @@ void decToBin(char num1[tamanhoMax], char num2[tamanhoMax + 1]) {
     memmove(num2, &num2[i], tamanhoMax - i + 1);
 }
 
-void decToOct(char num1[tamanhoMax], char num2[tamanhoMax + 1]) {
-    long valor = atol(num1);  
-    int i = tamanhoMax;  
+void decToOct(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    unsigned long valor = strtoul(num1, NULL, 10);
+    int i = tamanhoMax - 1;  
     num2[i] = '\0';  
 
     if (valor == 0) {
@@ -171,16 +171,75 @@ void decToOct(char num1[tamanhoMax], char num2[tamanhoMax + 1]) {
 
     memmove(num2, &num2[i], tamanhoMax - i + 1);
 }
-void decToHex(char num1[tamanhoMax], char num2[tamanhoMax]);
-void binToDec(char num1[tamanhoMax], char num2[tamanhoMax]);
-void binToOct(char num1[tamanhoMax], char num2[tamanhoMax]);
-void binToHex(char num1[tamanhoMax], char num2[tamanhoMax]);
-void octToDec(char num1[tamanhoMax], char num2[tamanhoMax]);
-void octToBin(char num1[tamanhoMax], char num2[tamanhoMax]);
-void octToHex(char num1[tamanhoMax], char num2[tamanhoMax]);
-void hexToDec(char num1[tamanhoMax], char num2[tamanhoMax]);
-void hexToBin(char num1[tamanhoMax], char num2[tamanhoMax]);
-void hexToOct(char num1[tamanhoMax], char num2[tamanhoMax]);
+
+void decToHex(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    unsigned long valor = strtoul(num1, NULL, 10);
+    int i = tamanhoMax - 1;  
+    num2[i] = '\0';  
+
+    if (valor == 0) {
+        num2[--i] = '0';  
+    } else {
+        while (valor > 0 && i > 0) {
+            int resto = valor % 16;
+            num2[--i] = (resto < 10) ? (resto + '0') : ('A' + (resto - 10));  
+            valor /= 16;
+        }
+    }
+    memmove(num2, &num2[i], tamanhoMax - i + 1);
+}
+
+void binToDec(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    unsigned long valor = strtoul(num1, NULL, 2);
+    sprintf(num2, "%lu", valor);
+}
+
+
+void binToOct(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    char intermediário[tamanhoMax];
+    binToDec(num1, intermediário);
+    decToOct(intermediário,num2);
+}
+
+void binToHex(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    char intermediário[tamanhoMax];
+    binToDec(num1, intermediário);
+    decToHex(intermediário,num2);
+}
+
+void octToDec(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    unsigned long valor = strtoul(num1, NULL, 8);
+    sprintf(num2, "%lu", valor);
+}
+
+void octToBin(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    char intermediário[tamanhoMax];
+    octToDec(num1, intermediário);
+    decToBin(intermediário,num2);
+}
+
+void octToHex(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    char intermediário[tamanhoMax];
+    octToDec(num1,intermediário);
+    decToHex(intermediário,num2);
+}
+
+void hexToDec(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    unsigned long valor = strtoul(num1, NULL, 16);
+    sprintf(num2, "%lu", valor);
+}
+
+void hexToBin(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    char intermediário[tamanhoMax];
+    hexToDec(num1,intermediário);
+    decToBin(intermediário,num2);
+}
+
+void hexToOct(char num1[tamanhoMax], char num2[tamanhoMax]) {
+    char intermediário[tamanhoMax];
+    hexToDec(num1,intermediário);
+    decToOct(intermediário,num2);
+}
 
 void converter(int base1, int base2, char num1[tamanhoMax], char num2[tamanhoMax]) {
     switch (base1) {
