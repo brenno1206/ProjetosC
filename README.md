@@ -4,9 +4,9 @@
 
 ## Sobre o Repositório
 
-Este repositório contém diversos projetos para praticar e reforçar conceitos fundamentais da linguagem C. Aprendi C no início de 2024 e estou revisando alguns tópicos através desses projetos, que foram idealizados com a ajuda do ChatGPT.
+Este repositório contém alguns projetos para praticar e reforçar conceitos fundamentais da linguagem C. Aprendi C no início de 2024 e estou revisando alguns tópicos através desses projetos, que foram idealizados com a ajuda do ChatGPT.
 
-Cada projeto está estruturado de maneira a exercitar diferentes conceitos e desafios dentro da programação em C.
+Cada projeto está estruturado de maneira a exercitar certos conceitos dentro da programação em C.
 
 ---
 
