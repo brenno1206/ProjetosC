@@ -4,7 +4,7 @@
 
 ## Sobre o Repositório
 
-Este repositório contém alguns projetos para praticar e reforçar conceitos fundamentais da linguagem C. Aprendi C no início de 2024 e estou revisando alguns tópicos através desses projetos, que foram idealizados com a ajuda do ChatGPT.
+Este repositório contém alguns projetos para praticar e reforçar conceitos fundamentais da linguagem C.
 
 Cada projeto está estruturado de maneira a exercitar certos conceitos dentro da programação em C.
 
@@ -104,17 +104,17 @@ Cada projeto está estruturado de maneira a exercitar certos conceitos dentro da
 
 ## Como Executar os Projetos 🖥️
 
-Cada projeto possui um `Makefile`, facilitando a compilação e execução. Para compilar e executar um projeto, utilize:
+Para compilar e executar um projeto, utilize:
 
 ```sh
-make
+gcc nome_do_arquivo.c -o nome_do_executavel
 ./nome_do_executavel
 ```
 
 Para limpar os arquivos gerados pela compilação, utilize:
 
 ```sh
-make clean
+rm nome_do_executavel
 ```
 
 ---
